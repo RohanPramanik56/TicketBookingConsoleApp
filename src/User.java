@@ -5,6 +5,7 @@ public class User {
     private String email;
     private String phoneNo;
 
+    // constructor
     public User(String userName, String password, String fullName, String email, String phoneNo) {
         this.userName = userName;
         this.password = password;
@@ -13,6 +14,7 @@ public class User {
         this.phoneNo = phoneNo;
     }
 
+    // getter and setter method
     public String getUserName() {
         return userName;
     }
@@ -53,6 +55,7 @@ public class User {
         this.phoneNo = phoneNo;
     }
 
+    // to-string method
     @Override
     public String toString() {
         return fullName + " ( " + userName + ", " + email + ", " + phoneNo + ")";
