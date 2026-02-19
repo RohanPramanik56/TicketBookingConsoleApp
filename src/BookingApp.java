@@ -1,3 +1,5 @@
+// MAIN APP
+
 import java.util.*;
 
 public class BookingApp {
@@ -5,6 +7,7 @@ public class BookingApp {
     private final Scanner scanner = new Scanner(System.in);
     private final UserService userService = new UserService();
     private final BookingService bookingService = new BookingService();
+
 
     public static void main(String[] args) {
         new BookingApp().start();
@@ -69,6 +72,7 @@ public class BookingApp {
         System.exit(0);
     }
 
+    // if user is already logged-in we will show him this menu
     private void showUserMenu() {
         while (userService.isLoggedIn()) {
             System.out.println("-----USER MENU -----");
@@ -104,15 +108,16 @@ public class BookingApp {
         if (trains.isEmpty()) {
             System.out.println("No trains found between " + src + " and " + dst);
             return;
-        } else {
-            System.out.println("Available trains between " + src + " and " + dst);
-            for (Train train : trains) {
-                System.out.println(train);
-            }
+        }
+        System.out.println("Available trains between " + src + " and " + dst);
+        for (Train train : trains) {
+            System.out.println(train);
         }
 
+        // after showing train we give user 2 option 1. if he/she wants to book train or 2. exit
         System.out.println("Do you want to book trains? (yes/no)");
         String answer = scanner.next();
+
         if (answer.equalsIgnoreCase("yes")) {
             System.out.println("Enter train id to book:");
             int trainId = scanner.nextInt();
@@ -146,6 +151,7 @@ public class BookingApp {
         for (Train train : trains) {
             System.out.println(train);
         }
+
         // if available
         System.out.println("Enter train id to book:");
         int trainId = scanner.nextInt();
@@ -156,17 +162,16 @@ public class BookingApp {
         if (ticket != null) {
             System.out.println("booking successful");
             System.out.println(ticket);
-        }
-        else{
+        } else {
             System.out.println("Some internal error occurred");
         }
     }
 
     private void viewMyTicket() {
-        List <Ticket> ticketByUser = bookingService.getTicketByUser(userService.getCurrentUser());
-        if(ticketByUser.isEmpty()){
+        List<Ticket> ticketByUser = bookingService.getTicketByUser(userService.getCurrentUser());
+        if (ticketByUser.isEmpty()) {
             System.out.println("No tickets found");
-        }else{
+        } else {
             System.out.println("Your tickets are");
             for (Ticket ticket : ticketByUser) {
                 System.out.println(ticket);
@@ -177,7 +182,7 @@ public class BookingApp {
     private void cancelTicket() {
         System.out.println("Enter the ticket id to cancel:");
         int ticketId = scanner.nextInt();
-        bookingService.cancelTicket(ticketId,  userService.getCurrentUser());
+        bookingService.cancelTicket(ticketId, userService.getCurrentUser());
     }
 
 }
